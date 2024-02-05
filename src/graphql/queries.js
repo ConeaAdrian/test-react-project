@@ -1,12 +1,12 @@
 import { gql } from '@apollo/client';
 
 export const GET_CONTENTS = gql`
-  query GetContents {
+  query GetContents($skip: Int!, $take: Int!) {
     contents(
       project_id: "5107de83-f208-4ca4-87ed-9b69d58d16e1"
       lang: "ru"
-      skip: 0
-      take: 10
+      skip: $skip
+      take: $take
     ) {
       id
       url
