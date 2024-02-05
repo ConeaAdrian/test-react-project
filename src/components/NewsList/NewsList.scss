@@ -56,15 +56,15 @@ p {
 
       article {
         margin: 0px 0px 24px;
-        height: 140px;
+        height: 125px;
         display: flex;
         gap: 10px;
       }
 
       .news-image {
-        min-width: 240px;
-        width: 100%;
+        width: 240px;
         height: 100%;
+        border-radius: 8px;
       }
 
       .news-details {
