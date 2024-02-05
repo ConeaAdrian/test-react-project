@@ -74,7 +74,11 @@ const NewsList = () => {
               </a>
               <div className="news-details">
                 <h3 className="news-title">{article.title.short}</h3>
-                <p className="news-description">{article.description.intro}</p>
+                <p className="news-description">
+                  {article.description.intro.length > 180
+                    ? `${article.description.intro.slice(0, 180)}...`
+                    : article.description.intro}
+                </p>
                 <div className="journal-info">
                   <img
                     src={baseLogoImageUrl(article.parents[1].attachment)}
