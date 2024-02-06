@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_CONTENTS } from "../../graphql/queries";
+import { Link } from "react-router-dom"; // Importăm Link
 import "./NewsList.scss";
 import LogoPoint from "../../assets/images/new-point-logo.svg";
 
@@ -65,18 +66,22 @@ const NewsList = () => {
         <div className="block-information">
           {articles.map((article) => (
             <article key={article.id}>
-              <a href={article.url} target="_blank" rel="">
+              {/* Înlocuiește a cu Link */}
+              <Link to={`/news-detail/${article.parents[0].url.en}/${article.url}`}>
                 <img
                   src={getImageUrl(article.thumbnail)}
                   className="news-image"
                   alt="News Image"
                 />
-              </a>
+              </Link>
               <div className="news-details">
-                <h3 className="news-title">{article.title.short}</h3>
+                {/* <h2>{article.parents[0].url.en}</h2> */}
+                <Link to={`/news-detail/${article.parents[0].url.en}/${article.url}`}>
+                  <h3 className="news-title">{article.title.short}</h3>
+                </Link>
                 <p className="news-description">
-                  {article.description.intro.length > 180
-                    ? `${article.description.intro.slice(0, 180)}...`
+                  {article.description.intro.length > 160
+                    ? `${article.description.intro.slice(0, 160)}...`
                     : article.description.intro}
                 </p>
                 <div className="journal-info">

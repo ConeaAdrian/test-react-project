@@ -28,6 +28,9 @@ p {
   padding: 40px 80px;
   font-family: Onest, sans-serif, Helvetica;
   background: rgb(245, 245, 245);
+  @media (max-width: 992px) {
+    padding: 40px 20px;
+  }
   .logo-container {
     display: flex;
     align-items: center;
@@ -65,11 +68,19 @@ p {
         width: 240px;
         height: 100%;
         border-radius: 8px;
+        @media (max-width: 600px) {
+          width: 124px;
+          height: 70px;
+        }
       }
 
       .news-details {
         display: flex;
         flex-direction: column;
+
+        a {
+          text-decoration: none;
+        }
 
         .journal-info {
             display: flex;
@@ -90,4 +101,22 @@ p {
       }
     }
   }
+  .news-title {
+    cursor: pointer;
+
+    @media (max-width: 600px) {
+      font-size: 18px;
+    }
+    &:hover {
+      color: rgb(255, 71, 0);
+    }
+  }
+  .news-description {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+a {
+  cursor: pointer;
 }

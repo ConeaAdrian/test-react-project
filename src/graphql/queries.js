@@ -22,6 +22,12 @@ export const GET_CONTENTS = gql`
       }
       parents {
         id
+        title {
+          ru
+        },
+        url {
+          en
+        },
         type
         attachment
       }
@@ -32,29 +38,28 @@ export const GET_CONTENTS = gql`
 
 
 export const GET_DETAIL_CONTENT = gql`
-query GetContents($skip: Int!, $take: Int!) {
-  contents(
-    id:"",
-    project_id:"5107de83-f208-4ca4-87ed-9b69d58d16e1",
-    full_url:"business/simpals-novye-rabochie-mesta-dlia-vsekh-zhelaiushchikh"
-  ) {
-    id
-    url
-    thumbnail
-    title {
-      short
-    }
-    description {
-      intro
-    }
-    dates {
-      posted(format: "YYYY-MM-DD HH:mm:ss", getDiff: true)
-    }
-    parents {
-      id
-      type
-      attachment
+  query GetContents {
+    content(
+      id: "9ad58a0b-3a6c-4852-a436-346f13780559"
+      project_id: "5107de83-f208-4ca4-87ed-9b69d58d16e1"
+      full_url: "business/simpals-novye-rabochie-mesta-dlia-vsekh-zhelaiushchikh"
+    ) {
+      counters {
+        view
+      }
+      title {
+        short
+      }
+      thumbnail
+      dates {
+        posted
+      }
+      title {
+        short
+      }
+      description {
+        long
+      }
     }
   }
-}
 `;

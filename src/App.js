@@ -1,7 +1,7 @@
-// App.js
 import React from 'react';
-import NewsList from './components/NewsList/NewsList';
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import NewsList from './components/NewsList/NewsList';
 import NewsDetail from './components/NewsDetail/NewsDetail';
 
 const httpLink = new HttpLink({
@@ -16,9 +16,12 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div>
-        <NewsDetail />
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<NewsList />} />
+          <Route path="/news-detail/:category_slug/:article_slug" element={<NewsDetail />} />
+        </Routes>
+      </Router>
     </ApolloProvider>
   );
 }
