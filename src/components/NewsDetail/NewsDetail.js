@@ -5,6 +5,9 @@ import { GET_DETAIL_CONTENT } from "../../graphql/queries";
 
 import CommingElements from '../CommingElement/CommingElement';
 
+import Category from '../Category/Category';
+
+
 import LogoPoint from "../../assets/images/new-point-logo.svg";
 import EyesImg from "../../assets/images/svgviewer-output.svg";
 
@@ -76,6 +79,7 @@ const NewsDetail = () => {
         <img src={LogoPoint} alt="LogoPoint" className="logo-img" />
         <p className="slogan">Gandeste si clarifica liber</p>
       </div>
+      <Category/>
 
       <div className="content-page__article">
         <div className="article-data-info">
