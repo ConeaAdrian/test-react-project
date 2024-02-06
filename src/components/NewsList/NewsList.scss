@@ -1,5 +1,3 @@
-h1 {
-}
 span {
   color: rgb(15, 23, 42);
   position: relative;
@@ -24,26 +22,31 @@ p {
   margin: 0px 0px 10px;
   color: rgb(15, 23, 42);
 }
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 30px;
+
+  .logo-img {
+    max-width: 170px;
+    width: 100%;
+    height: 48px;
+  }
+  .slogan {
+      color: rgb(128, 126, 124);
+      font-size: 12px;
+  }
+}
 .general-page {
   padding: 40px 80px;
   font-family: Onest, sans-serif, Helvetica;
   background: rgb(245, 245, 245);
-  .logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-    .logo-img {
-      max-width: 170px;
-      width: 100%;
-      height: 48px;
-    }
-    .slogan {
-        color: rgb(128, 126, 124);
-        font-size: 12px;
-    }
+  @media (max-width: 992px) {
+    padding: 40px 20px;
   }
+ 
   .news-information {
     max-width: 100%;
     padding: 24px;
@@ -56,20 +59,28 @@ p {
 
       article {
         margin: 0px 0px 24px;
-        height: 140px;
+        height: 125px;
         display: flex;
         gap: 10px;
       }
 
       .news-image {
-        min-width: 240px;
-        width: 100%;
+        width: 240px;
         height: 100%;
+        border-radius: 8px;
+        @media (max-width: 600px) {
+          width: 124px;
+          height: 70px;
+        }
       }
 
       .news-details {
         display: flex;
         flex-direction: column;
+
+        a {
+          text-decoration: none;
+        }
 
         .journal-info {
             display: flex;
@@ -90,4 +101,22 @@ p {
       }
     }
   }
+  .news-title {
+    cursor: pointer;
+
+    @media (max-width: 600px) {
+      font-size: 18px;
+    }
+    &:hover {
+      color: rgb(255, 71, 0);
+    }
+  }
+  .news-description {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+a {
+  cursor: pointer;
 }
