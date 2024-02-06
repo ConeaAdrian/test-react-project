@@ -2,16 +2,11 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { GET_DETAIL_CONTENT } from "../../graphql/queries";
-
-import CommingElements from '../CommingElement/CommingElement';
-
+import { ContentPage, ArticleContainer, ArticleDataInfo, LogoJournal, ViewStatistic, Title, Description, Documentation, ArticleImage, LogoContainer } from './NewsDetail.styles'; // Importăm componente Styled-components
+import CommingElement from '../CommingElement/CommingElement';
 import Category from '../Category/Category';
-
-
 import LogoPoint from "../../assets/images/new-point-logo.svg";
 import EyesImg from "../../assets/images/svgviewer-output.svg";
-
-import "./NewsDetail.scss";
 
 const baseLogoImageUrl = (attachment) =>
   `https://i.simpalsmedia.com/point.md/logo/${attachment}`;
@@ -74,40 +69,34 @@ const NewsDetail = () => {
     `https://i.simpalsmedia.com/point.md/news/900x900/${thumbnail}`;
 
   return (
-    <div className="content-page">
-      <div className="logo-container">
+    <ContentPage>
+      <LogoContainer>
         <img src={LogoPoint} alt="LogoPoint" className="logo-img" />
         <p className="slogan">Gandeste si clarifica liber</p>
-      </div>
-      <Category/>
-
-      <div className="content-page__article">
-        <div className="article-data-info">
-          <img
-            className="logo-journal"
+      </LogoContainer>
+      <Category />
+      <ArticleContainer>
+        <ArticleDataInfo>
+          <LogoJournal
             src={baseLogoImageUrl(article.parents[1].attachment)}
             alt={article.parents[0].url.en}
           />
           <p>{getPostedDateTime(article.dates.posted)}</p>
-          <div className="viwe-statistic">
+          <ViewStatistic>
             <img src={EyesImg} alt="EyesImg" className="eyes-img" />
-
             <p>{article.counters.view}</p>
-          </div>
-        </div>
-        <h1 className="content-page__title">{article.title.long}</h1>
-
-        <h3 className="news-title">{article.description.intro}</h3>
-
-        <img
+          </ViewStatistic>
+        </ArticleDataInfo>
+        <Title>{article.title.long}</Title>
+        <Description>{article.description.intro}</Description>
+        <ArticleImage
           src={getImageUrl(article.thumbnail)}
-          className="news-image"
           alt="News Image"
         />
         {formatDescription(article.description.long)}
-        <CommingElements/>
-      </div>
-    </div>
+        <CommingElement />
+      </ArticleContainer>
+    </ContentPage>
   );
 };
 
