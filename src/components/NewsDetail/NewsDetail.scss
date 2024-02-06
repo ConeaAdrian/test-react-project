@@ -64,4 +64,24 @@
     width: 20px;
     height: 20px;
   }
+  .article-data-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    p {
+      margin: 0;
+    }
+  }
+  .viwe-statistic {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .eyes-img {
+      width: 20px;
+      height: 20px;
+
+    }
+  }
 }

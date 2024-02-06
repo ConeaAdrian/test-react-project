@@ -35,27 +35,60 @@ export const GET_CONTENTS = gql`
   }
 `;
 
-
-
 export const GET_DETAIL_CONTENT = gql`
-  query GetContents {
+  query GetContentsDetail($fullUrl: String!) {
     content(
-      id: "9ad58a0b-3a6c-4852-a436-346f13780559"
+      id: ""
       project_id: "5107de83-f208-4ca4-87ed-9b69d58d16e1"
-      full_url: "business/simpals-novye-rabochie-mesta-dlia-vsekh-zhelaiushchikh"
+      full_url: $fullUrl
     ) {
-      counters {
-        view
+      parents {
+        id
+        title {
+          ru
+        }
+        url {
+          en
+        }
+        type
+        attachment
       }
-      title {
-        short
-      }
-      thumbnail
       dates {
         posted
       }
-      description {
+      counters {
+        view
+      }
+      thumbnail
+      disclaimer
+      title {
         long
+      }
+      description {
+        intro
+        long
+      }
+      similar {
+        id
+        url
+        thumbnail
+        title {
+          short
+        }
+        description {
+          intro
+        }
+        dates {
+          posted
+        }
+        parents {
+          url {
+            en
+          }
+          title {
+            en
+          }
+        }
       }
     }
   }
