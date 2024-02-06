@@ -3,6 +3,8 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { GET_DETAIL_CONTENT } from "../../graphql/queries";
 
+import CommingElements from '../CommingElement/CommingElement';
+
 import LogoPoint from "../../assets/images/new-point-logo.svg";
 import EyesImg from "../../assets/images/svgviewer-output.svg";
 
@@ -83,11 +85,11 @@ const NewsDetail = () => {
             alt={article.parents[0].url.en}
           />
           <p>{getPostedDateTime(article.dates.posted)}</p>
-          <dic className="viwe-statistic">
+          <div className="viwe-statistic">
             <img src={EyesImg} alt="EyesImg" className="eyes-img" />
 
             <p>{article.counters.view}</p>
-          </dic>
+          </div>
         </div>
         <h1 className="content-page__title">{article.title.long}</h1>
 
@@ -99,6 +101,7 @@ const NewsDetail = () => {
           alt="News Image"
         />
         {formatDescription(article.description.long)}
+        <CommingElements/>
       </div>
     </div>
   );

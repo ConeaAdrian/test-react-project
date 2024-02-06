@@ -3,8 +3,13 @@
   font-family: Onest, sans-serif, Helvetica;
   background: rgb(245, 245, 245);
 
+  @media (max-width: 768px) {
+    padding: 40px 20px;
+
+  }
+
   &__article {
-    width: 100%;
+    width: auto;
     max-width: 800px;
     margin: 0 auto;
     padding: 24px;
