@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import "./NewsList.scss";
 import LogoPoint from "../../assets/images/new-point-logo.svg";
 
+import Category from '../Category/Category';
+
+
 const getImageUrl = (thumbnail) =>
   `https://i.simpalsmedia.com/point.md/news/370x194/${thumbnail}`;
 
@@ -81,6 +84,7 @@ const NewsList = () => {
         <img src={LogoPoint} alt="LogoPoint" className="logo-img" />
         <p className="slogan">Gandeste si clarifica liber</p>
       </div>
+      <Category/>
       <div className="news-information">
         <h2>Astazi</h2>
         <div className="block-information">
