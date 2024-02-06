@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_CONTENTS } from "../../graphql/queries";
-import { Link } from "react-router-dom"; // Importăm Link
+import { Link } from "react-router-dom";
 import "./NewsList.scss";
 import LogoPoint from "../../assets/images/new-point-logo.svg";
 
@@ -10,6 +10,24 @@ const getImageUrl = (thumbnail) =>
 
 const baseLogoImageUrl = (attachment) =>
   `https://i.simpalsmedia.com/point.md/logo/${attachment}`;
+
+  const getTimeElapsed = (timestamp) => {
+    const currentTime = Date.now();
+    const postTime = new Date(timestamp * 1000);
+    const elapsed = Math.round((currentTime - postTime) / 60000); // Timpul trecut în minute
+  
+    if (elapsed < 1) {
+      return 'Прямо сейчас';
+    } else if (elapsed < 60) {
+      return `Сейчас ${elapsed} ${elapsed === 1 ? 'минута' : 'минуты'}`;
+    } else if (elapsed < 1440) { // 60 * 24 = 1440 minute (1 zi)
+      const hours = Math.floor(elapsed / 60);
+      return `Сейчас ${hours} ${hours === 1 ? 'час' : 'часы'}`;
+    } else {
+      const days = Math.floor(elapsed / 1440);
+      return `Сейчас ${days} ${days === 1 ? 'день' : 'дни'}`;
+    }
+  };
 
 const NewsList = () => {
   const [articles, setArticles] = useState([]);
@@ -30,8 +48,9 @@ const NewsList = () => {
 
   const handleScroll = () => {
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
+      document.documentElement.offsetHeight -
+        (window.innerHeight + document.documentElement.scrollTop) <
+      100
     ) {
       if (!loading) {
         fetchMore({
@@ -44,15 +63,16 @@ const NewsList = () => {
       }
     }
   };
+  
 
   React.useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [handleScroll, loading]);
+  }, [handleScroll, loading, skip]);
 
-  if (loading && !articles.length) return <p>Loading...</p>; // Show loading only if no articles are loaded yet
+  if (loading && !articles.length) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
@@ -66,7 +86,6 @@ const NewsList = () => {
         <div className="block-information">
           {articles.map((article) => (
             <article key={article.id}>
-              {/* Înlocuiește a cu Link */}
               <Link to={`/news-detail/${article.parents[0].url.en}/${article.url}`}>
                 <img
                   src={getImageUrl(article.thumbnail)}
@@ -75,7 +94,6 @@ const NewsList = () => {
                 />
               </Link>
               <div className="news-details">
-                {/* <h2>{article.parents[0].url.en}</h2> */}
                 <Link to={`/news-detail/${article.parents[0].url.en}/${article.url}`}>
                   <h3 className="news-title">{article.title.short}</h3>
                 </Link>
@@ -90,7 +108,7 @@ const NewsList = () => {
                     className="logo-journal"
                     alt="Journal Logo"
                   />
-                  <p className="time-post">{article.dates.posted}</p>
+                  <p className="time-post">{getTimeElapsed(article.dates.posted)}</p>
                 </div>
               </div>
             </article>

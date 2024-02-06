@@ -18,7 +18,7 @@ export const GET_CONTENTS = gql`
         intro
       }
       dates {
-        posted(format: "YYYY-MM-DD HH:mm:ss", getDiff: true)
+        posted
       }
       parents {
         id
@@ -53,9 +53,6 @@ export const GET_DETAIL_CONTENT = gql`
       thumbnail
       dates {
         posted
-      }
-      title {
-        short
       }
       description {
         long
