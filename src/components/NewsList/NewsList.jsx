@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_CONTENTS } from "../../graphql/queries";
 import { Link } from "react-router-dom";
-import "./NewsList.scss";
+import { GeneralPage, LogoContainer, NewsInformation, NewsTitle, NewsDescription } from './NewsList.styles'; // Importăm componente Styled
 import LogoPoint from "../../assets/images/new-point-logo.svg";
-
 import Category from '../Category/Category';
-
 
 const getImageUrl = (thumbnail) =>
   `https://i.simpalsmedia.com/point.md/news/370x194/${thumbnail}`;
@@ -14,23 +12,23 @@ const getImageUrl = (thumbnail) =>
 const baseLogoImageUrl = (attachment) =>
   `https://i.simpalsmedia.com/point.md/logo/${attachment}`;
 
-  const getTimeElapsed = (timestamp) => {
-    const currentTime = Date.now();
-    const postTime = new Date(timestamp * 1000);
-    const elapsed = Math.round((currentTime - postTime) / 60000); // Timpul trecut în minute
-  
-    if (elapsed < 1) {
-      return 'Прямо сейчас';
-    } else if (elapsed < 60) {
-      return `Сейчас ${elapsed} ${elapsed === 1 ? 'минута' : 'минуты'}`;
-    } else if (elapsed < 1440) { // 60 * 24 = 1440 minute (1 zi)
-      const hours = Math.floor(elapsed / 60);
-      return `Сейчас ${hours} ${hours === 1 ? 'час' : 'часы'}`;
-    } else {
-      const days = Math.floor(elapsed / 1440);
-      return `Сейчас ${days} ${days === 1 ? 'день' : 'дни'}`;
-    }
-  };
+const getTimeElapsed = (timestamp) => {
+  const currentTime = Date.now();
+  const postTime = new Date(timestamp * 1000);
+  const elapsed = Math.round((currentTime - postTime) / 60000); // Timpul trecut în minute
+
+  if (elapsed < 1) {
+    return 'Прямо сейчас';
+  } else if (elapsed < 60) {
+    return `Сейчас ${elapsed} ${elapsed === 1 ? 'минута' : 'минуты'}`;
+  } else if (elapsed < 1440) { // 60 * 24 = 1440 minute (1 zi)
+    const hours = Math.floor(elapsed / 60);
+    return `Сейчас ${hours} ${hours === 1 ? 'час' : 'часы'}`;
+  } else {
+    const days = Math.floor(elapsed / 1440);
+    return `Сейчас ${days} ${days === 1 ? 'день' : 'дни'}`;
+  }
+};
 
 const NewsList = () => {
   const [articles, setArticles] = useState([]);
@@ -66,7 +64,6 @@ const NewsList = () => {
       }
     }
   };
-  
 
   React.useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -79,14 +76,14 @@ const NewsList = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="general-page">
-      <div className="logo-container">
+    <GeneralPage>
+      <LogoContainer>
         <img src={LogoPoint} alt="LogoPoint" className="logo-img" />
         <p className="slogan">Gandeste si clarifica liber</p>
-      </div>
-      <Category/>
-      <div className="news-information">
-        <h2>Astazi</h2>
+      </LogoContainer>
+      <Category />
+      <NewsInformation>
+        <h2>Сегодня</h2>
         <div className="block-information">
           {articles.map((article) => (
             <article key={article.id}>
@@ -99,13 +96,13 @@ const NewsList = () => {
               </Link>
               <div className="news-details">
                 <Link to={`/news-detail/${article.parents[0].url.en}/${article.url}`}>
-                  <h3 className="news-title">{article.title.short}</h3>
+                  <NewsTitle>{article.title.short}</NewsTitle>
                 </Link>
-                <p className="news-description">
+                <NewsDescription>
                   {article.description.intro.length > 160
                     ? `${article.description.intro.slice(0, 160)}...`
                     : article.description.intro}
-                </p>
+                </NewsDescription>
                 <div className="journal-info">
                   <img
                     src={baseLogoImageUrl(article.parents[1].attachment)}
@@ -118,8 +115,8 @@ const NewsList = () => {
             </article>
           ))}
         </div>
-      </div>
-    </div>
+      </NewsInformation>
+    </GeneralPage>
   );
 };
 
